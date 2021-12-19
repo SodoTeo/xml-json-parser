@@ -1,0 +1,132 @@
+{
+    "@lat": "23.123233",
+    "@long": "40.12333",
+    "@msg": "Hello user!",
+    "station": [{
+            "@stationID": "11111",
+            "@distance": "1.4",
+            "county": {
+                "@countyID": "49000200",
+                "#text": "Λάρισας"
+            },
+            "municipality": {
+                "@municipalityID": "12345",
+                "#text": "Φαρσάλων"
+            },
+            "dd": {
+                "@ddID": "12345",
+                "#text": "Κοινότητα Σταυρού"
+            },
+            "address": "Σόλωνος 35, Σταυρός",
+            "companyName": "Τζίμης Oil",
+            "lat": "23.111456",
+            "long": "41.1114567",
+            "h24": {
+                "@value": "0"
+            },
+            "brand": {
+                "@brandID": "1",
+                "#text": "EKO"
+            },
+            "phone": [
+                "2410555666",
+                "6932555444"
+            ],
+            "fuels": [{
+                    "@fuelTypeID": "1",
+                    "@price": "1.543",
+                    "@priceTimeStamp": "2018-10-22 07:30:17",
+                    "#text": "Super Duper Αμόλυβδη"
+                },
+                {
+                    "@fuelTypeID": "2",
+                    "@price": "1.043",
+                    "@priceTimeStamp": "2018-10-22 07:30:45",
+                    "#text": "WOW Diesel"
+                }
+            ]
+        },
+        {
+            "@stationID": "22222",
+            "@distance": "2.4",
+            "county": {
+                "@countyID": "49000200",
+                "#text": "Λάρισας"
+            },
+            "municipality": {
+                "@municipalityID": "223344",
+                "#text": "Φαρσάλων"
+            },
+            "dd": {
+                "@ddID": "222222",
+                "#text": "Τερψιθέα"
+            },
+            "address": "Λαρίσης 22, Τερψιθέα",
+            "companyName": "ΤερψιOIL",
+            "lat": "23.223456",
+            "long": "41.2234567",
+            "h24": {
+                "@value": "0"
+            },
+            "brand": {
+                "@brandID": "2",
+                "#text": "/Shell"
+            },
+            "phone": "2410555666",
+            "fuels": [{
+                    "@fuelTypeID": "1",
+                    "@price": "1.622",
+                    "@priceTimeStamp": "2018-11-02 08:30:17",
+                    "#text": "Super Duper Αμόλυβδη"
+                },
+                {
+                    "@fuelTypeID": "2",
+                    "@price": "1.042",
+                    "@priceTimeStamp": "2018-11-02 08:30:45",
+                    "#text": "WOW Diesel"
+                }
+            ]
+        },
+        {
+            "@stationID": "33333",
+            "@distance": "3.4",
+            "county": {
+                "@countyID": "32000200",
+                "#text": "Μαγνησίας"
+            },
+            "municipality": {
+                "@municipalityID": "332211",
+                "#text": "Βελεστίνου"
+            },
+            "dd": {
+                "@ddID": "34567",
+                "#text": "Βελεστίνο"
+            },
+            "address": "Κενταύρου 35, Βελεστίνο",
+            "companyName": "Κένταυρος Oil",
+            "lat": "23.333333",
+            "long": "41.333333",
+            "h24": {
+                "@value": "1"
+            },
+            "brand": {
+                "@brandID": "3",
+                "#text": "JETOIL"
+            },
+            "phone": "6932555444",
+            "fuels": [{
+                    "@fuelTypeID": "1",
+                    "@price": "1.543",
+                    "@priceTimeStamp": "2018-11-10 07:30:17",
+                    "#text": "Super Duper Αμόλυβδη"
+                },
+                {
+                    "@fuelTypeID": "2",
+                    "@price": "1.043",
+                    "@priceTimeStamp": "2018-11-10 07:30:45",
+                    "#text": "WOW Diesel"
+                }
+            ]
+        }
+    ]
+}

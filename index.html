@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>XML-JSON PARSER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!--Include jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+    <style>
+        h1 {
+            color: #ee6e73;
+        }
+        
+        body {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .waves-effect.waves-light.btn-large.waves-input-wrapper {
+            margin-top: 1.5%;
+            margin-bottom: 5%;
+        }
+        
+        .card-content.white-text {
+            padding: 25px;
+        }
+        
+        img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>XML-JSON PARSER</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col s6">
+                <input type="button" value="Read XML" id="btnXml" class="waves-effect waves-light btn-large" />
+
+                <input type="button" value="Read JSON" id="btnJson" class="waves-effect waves-light btn-large" />
+
+                <input type="button" value="Clear Data" id="btnClear" class="waves-effect waves-light btn-large" />
+                <br><br><br>
+                <img src="image.png" alt="imageplash">
+
+            </div>
+
+            <div class="col s6">
+                <div class="card blue-grey darken-1">
+                    <article id="article" class="card-content white-text"></article>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(document).ready(function() {
+        //jQuery on button click Call
+        $("#btnXml").click(function() {
+            clear(); // Clear the article body.
+            //ajax call to load XML and parse it
+            $.ajax({
+                type: "GET",
+                url: "fuel.xml", // The file path.
+                dataType: "xml",
+                success: function(xml) {
+                    //find all station tags, loop them and append to article body
+                    $(xml)
+                        .find("station")
+                        .each(function() {
+                            $flag = 0;
+                            $phone = $(this).find("phone").text();
+                            if ($phone.length == 20) {
+                                $phone1 = $phone.slice(0, 10);
+                                $phone2 = $phone.slice(-10);
+                                $flag = 1;
+                            } else {
+                                $phone1 = $(this).find("phone").text();
+                            }
+
+                            function isSecondPhone($flag, $phone2) {
+                                if ($flag == 1) {
+                                    return $phone2;
+                                } else {
+                                    return " ";
+                                }
+                            }
+
+                            $("article").append(
+                                "<p> Station ID: " + $(this).attr("stationID") + "</p>"
+                            );
+                            $("article").append(
+                                "<p> Distance: " + $(this).attr("distance") + "</p>"
+                            );
+                            $("article").append(
+                                "<p> Address: " + $(this).find("address").text() + "</p>"
+                            );
+                            $("article").append("<p> phone 1: " + $phone1 + "</p>");
+                            $("article").append(
+                                "<p> phone 2: " + isSecondPhone($flag, $phone2) + "</p>"
+                            );
+                            $("article").append(
+                                "<p> 24 Hour: " + $(this).find("h24").attr("value") + "</p>"
+                            );
+                            $(this)
+                                .find("fuel")
+                                .each(function(i, v) {
+                                    $fuel1 = $(v).text();
+                                    $("article").append(
+                                        "<p> Fuel Name: " + $(v).text() + "</p>"
+                                    );
+                                    $("article").append(
+                                        "<p> Fuel Type" + $(v).attr("fuelTypeID") + "</p>"
+                                    );
+                                    $("article").append(
+                                        "<p> Price: " + $(v).attr("price") + "</p>"
+                                    );
+                                    $("article").append(
+                                        "<p> Price Time: " + $(v).attr("priceTimeStamp") + "</p>"
+                                    );
+                                });
+                            $("article").append("<br>");
+                        });
+                },
+            });
+        });
+
+        function clear() {
+            $("#article").empty();
+        }
+
+        $("#btnClear").click(function() {
+            $("#article").empty(); // Clear the article body.
+        });
+
+        $("#btnJson").click(function() {
+            clear(); // Clear the article body.
+            //ajax call to load json and parse it
+            $.ajax({
+                type: "GET",
+                url: "fuel.json", // The file path.
+                dataType: "json",
+                success: function(json) {
+                    $("ul").children().remove();
+
+                    $dataset = json["station"];
+
+                    for (let $i = 0; $i < $dataset.length; $i++) {
+                        $stationId = $dataset[$i]["@stationID"];
+                        $distance = $dataset[$i]["@distance"];
+                        $address = $dataset[$i].address;
+                        $phone = $dataset[$i].phone;
+                        $h24 = $dataset[$i].h24["@value"];
+
+                        $("article").append("<p> Station ID: " + $stationId + "</p>");
+                        $("article").append("<p> Distance: " + $distance + "</p>");
+                        $("article").append("<p> Address: " + $address + "</p>");
+                        $("article").append("<p> phone : " + $phone + "</p>");
+                        $("article").append("<p> 24 Hour: " + $h24 + "</p>");
+
+                        for ($fuel of $dataset[$i].fuels) {
+                            $fuels =
+                                "Fuel Name: " +
+                                $fuel["#text"] +
+                                " <br> Fuel Type: " +
+                                $fuel["@fuelTypeID"] +
+                                " <br> Price: " +
+                                $fuel["@price"] +
+                                " <br> Price Stamp: " +
+                                $fuel["@priceTimeStamp"];
+                            $("article").append(
+                                "<p> Fuel-Fuel info: <br>" + $fuels + "</p>"
+                            );
+                        }
+
+                        $("article").append("<br>");
+                    }
+                },
+            });
+        });
+    });
+</script>
+
+</html>
